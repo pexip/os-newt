@@ -1,0 +1,3 @@
+libnewt.so*	lib
+../../debian/palette.ubuntu etc/newt/
+../../debian/palette.original etc/newt/

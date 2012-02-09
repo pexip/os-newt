@@ -1,0 +1,37 @@
+diff -ruN newt-0.52.11-old/po/fa.po newt-0.52.11/po/fa.po
+--- newt-0.52.11-old/po/fa.po	1970-01-01 01:00:00.000000000 +0100
++++ newt-0.52.11/po/fa.po	2010-10-16 15:15:26.000000000 +0100
+@@ -0,0 +1,33 @@
++msgid ""
++msgstr ""
++"Project-Id-Version: fa\n"
++"Report-Msgid-Bugs-To: \n"
++"POT-Creation-Date: 2006-09-14 16:03+0200\n"
++"PO-Revision-Date: \n"
++"Last-Translator: Behrad Eslamifar <behrad_es@yahoo.com>\n"
++"Language-Team: debian-l10n-persian <debian-l10n-persian@lists.debian.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=UTF-8\n"
++"Content-Transfer-Encoding: 8bit\n"
++"X-Poedit-Language: Persian\n"
++"X-Poedit-Country: IRAN, ISLAMIC REPUBLIC OF\n"
++"X-Poedit-SourceCharset: utf-8\n"
++
++#: ../dialogboxes.c:43
++#: ../dialogboxes.c:48
++#: ../dialogboxes.c:493
++msgid "Ok"
++msgstr "تایید"
++
++#: ../dialogboxes.c:51
++msgid "Cancel"
++msgstr "لغو"
++
++#: ../dialogboxes.c:498
++msgid "Yes"
++msgstr "بله"
++
++#: ../dialogboxes.c:500
++msgid "No"
++msgstr "خیر"
++

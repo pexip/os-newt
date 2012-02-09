@@ -1,0 +1,64 @@
+--- newt-0.52.11/newt.c	2009-09-24 10:03:09.000000000 -0500
++++ newt-0.52.11.new/newt.c	2011-03-18 21:49:06.334851410 -0500
+@@ -283,6 +283,7 @@ int newtInit(void) {
+     char * MonoValue, * MonoEnv = "NEWT_MONO";
+     const char *lang;
+     int ret;
++    FILE *fp = NULL;
+ 
+     if ((lang = getenv("LC_ALL")) == NULL)
+         if ((lang = getenv("LC_CTYPE")) == NULL)
+@@ -308,7 +309,52 @@ int newtInit(void) {
+     if ((ret = SLang_init_tty(0, 0, 0)) < 0)
+ 	return ret;
+ 
+-    newtSetColors(newtDefaultColorPalette);
++    /* Support user configurable palette defined as a comma-separated list
++       of color names in /etc/newt/palette, ordered according to the
++       newtColors struct.  Allows for theming and customizing newt. */
++    if (fp = fopen("/etc/newt/palette", "r" )) {
++	char s[4096], *c;
++	int i = 0;
++	char *p[44];
++	struct newtColors nc;
++	/* Seed the custom structure with the default values */
++	memcpy(&nc, &newtDefaultColorPalette, sizeof(newtDefaultColorPalette));
++	if (fgets(s, sizeof(s), fp)) {
++	    if ((c = strtok(s, ",")) != NULL)
++		p[i++] = c;
++	    while ((c = strtok(NULL, ",")) != NULL && i<44)
++		p[i++] = c;
++	}
++	fclose(fp);
++	i = 0;
++	/* Set each string pointer in the struct */
++	nc.rootFg          = p[i++];	nc.rootBg          = p[i++];
++	nc.borderFg        = p[i++];	nc.borderBg        = p[i++];
++	nc.windowFg        = p[i++];	nc.windowBg        = p[i++];
++	nc.shadowFg        = p[i++];	nc.shadowBg        = p[i++];
++	nc.titleFg         = p[i++];	nc.titleBg         = p[i++];
++	nc.buttonFg        = p[i++];	nc.buttonBg        = p[i++];
++	nc.actButtonFg     = p[i++];	nc.actButtonBg     = p[i++];
++	nc.checkboxFg      = p[i++];	nc.checkboxBg      = p[i++];
++	nc.actCheckboxFg   = p[i++];	nc.actCheckboxBg   = p[i++];
++	nc.entryFg         = p[i++];	nc.entryBg         = p[i++];
++	nc.labelFg         = p[i++];	nc.labelBg         = p[i++];
++	nc.listboxFg       = p[i++];	nc.listboxBg       = p[i++];
++	nc.actListboxFg    = p[i++];	nc.actListboxBg    = p[i++];
++	nc.textboxFg       = p[i++];	nc.textboxBg       = p[i++];
++	nc.actTextboxFg    = p[i++];	nc.actTextboxBg    = p[i++];
++	nc.helpLineFg      = p[i++];	nc.helpLineBg      = p[i++];
++	nc.rootTextFg      = p[i++];	nc.rootTextBg      = p[i++];
++	nc.emptyScale      = p[i++];	nc.fullScale       = p[i++];
++	nc.disabledEntryFg = p[i++];	nc.disabledEntryBg = p[i++];
++	nc.compactButtonFg = p[i++];	nc.compactButtonBg = p[i++];
++	nc.actSelListboxFg = p[i++];	nc.actSelListboxBg = p[i++];
++	nc.selListboxFg    = p[i++];	nc.selListboxBg    = p[i++];
++	/* It would be nice if we could check the return value of this... */
++	newtSetColors(nc);
++    } else
++	newtSetColors(newtDefaultColorPalette);
++
+     newtCursorOff();
+     initKeymap();
+ 
