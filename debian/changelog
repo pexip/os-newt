@@ -1,3 +1,9 @@
+newt (0.52.11-2ubuntu10pexip1) pexip; urgency=low
+
+  * Prepare Pexip packaging
+
+ -- John-Mark Bell <jmb@pexip.com>  Tue, 24 Dec 2013 23:57:10 +0000
+
 newt (0.52.11-2ubuntu10) precise; urgency=low
 
   * Move libnewt to /lib and whiptail to /bin so they can be used by
